@@ -65,6 +65,7 @@ namespace Tea
 
             if (accessToken != null)
             {
+                loginState.Value = "connected";
                 #region 列出所有可管理的專頁
 
                 try
@@ -106,6 +107,10 @@ namespace Tea
                     UploadPhoto(fb, bytes, pageAccessToken);
                 }
                 #endregion
+            }
+            else
+            {
+                loginState.Value = "";
             }
         }
 
