@@ -26,6 +26,8 @@ namespace Tea
         protected void Page_Load(object sender, EventArgs e)
         {
             // 若已授權，querystring 應當取得 code，接下來要換回 access_token 再做事
+            //if (Session["AccessToken"] != null)
+            //Session["accessToken"]
             if (Request.Params.AllKeys.Contains("code"))
             {
                 try
@@ -38,10 +40,11 @@ namespace Tea
                         client_id = _appID,
                         client_secret = _appSecret,
                         redirect_uri = _redirect_url,
-                        code = Request["code"]
+                        code = Request["code"].ToString()
                     });
 
-                    Session["accessToken"] = result.access_token;
+                    var accessToken = result.access_token;
+                    Session["accessToken"] = accessToken;
                     printMessage("# access token : " + result.access_token);
                     #endregion
 
@@ -70,6 +73,7 @@ namespace Tea
 
                     try
                     {
+                        fb.AccessToken = accessToken;
                         IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
 
                         // 列出所有我管理的粉絲專頁
