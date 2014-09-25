@@ -91,7 +91,7 @@ namespace Tea
         {
             // 選擇的粉絲專頁
             _pageID = ddlPageID.SelectedValue;
-            _pageID = "1474910372779635";
+            //_pageID = "1474910372779635";
             // 照片檔名
             _fileName = tbFileName.Text;
             printMessage("Image name :" + _fileName);
