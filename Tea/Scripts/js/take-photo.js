@@ -1,19 +1,14 @@
 ﻿$(function () {
     // start here, like a "main()"
-
-    setTimeout(function () {
-        var elem = document.getElementById("photo-div");
-        //debugger;
-        print(elem);
-        elem.webkitRequestFullScreen();
-
-        $("#take-photo").click();
-    }, 1000);
-
-    
-
-    tp.start();
-    tp.startCamera();
+    var loginState = $("#loginState").val();
+    print("#loginState: " + loginState);
+    if (loginState == "connected") {
+        tp.start();
+        tp.startCamera();
+    }
+    else {
+        $("#btnFBConnect").click();
+    }
 })
 
 var tp = {};
@@ -32,10 +27,6 @@ tp.start = function () {
     });
 
     $("#take-photo").click(function () {
-        var elem = document.getElementById("photo-div");
-        //debugger;
-        print(elem);
-        elem.webkitRequestFullScreen();
         if (tp.videoStream) {
             var pCanvus = document.getElementById("snap-shot");
             var pContext = pCanvus.getContext("2d");
