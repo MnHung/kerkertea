@@ -137,3 +137,4 @@ D:\Projects\KerKerTea\appharbor_asp.net\kerkertea\Tea\bin\zh-Hant\Microsoft.Owin
 D:\Projects\KerKerTea\appharbor_asp.net\kerkertea\Tea\bin\zh-Hant\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\Projects\KerKerTea\appharbor_asp.net\kerkertea\Tea\obj\Debug\Tea.dll
 D:\Projects\KerKerTea\appharbor_asp.net\kerkertea\Tea\obj\Debug\Tea.pdb
+D:\Projects\KerKerTea\appharbor_asp.net\kerkertea\Tea\obj\Debug\Tea.csprojResolveAssemblyReference.cache

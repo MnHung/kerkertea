@@ -25,14 +25,36 @@ namespace Tea
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            // 若已授權，querystring 應當取得 code，接下來要換回 access_token 再做事
-            //if (Session["AccessToken"] != null)
-            //Session["accessToken"]
+
+            //if (Session["accessToken"] != null)
+            //{
+            //    Label4.Text = Session["AccessToken"].ToString();
+
+            //    // Retrieve user information from database if stored or else create a new FacebookClient with this accesstoken and extract data again.
+            //    var fb = new FacebookClient(Session["AccessToken"].ToString());
+
+            //    dynamic me = fb.Get("me?fields=friends,name,email");
+
+            //    string email = me.email;
+            //    Label1.Text = email;
+
+            //    var friends = me.friends;
+
+            //    foreach (var friend in (JsonArray)friends["data"])
+            //    {
+            //        System.Diagnostics.Debug.WriteLine((string)(((JsonObject)friend)["name"]));
+            //        ListBox1.Items.Add((string)(((JsonObject)friend)["name"]));
+            //    }
+
+            //    Button1.Text = "Log Out";
+
+            //}
+            //else 
             if (Request.Params.AllKeys.Contains("code"))
             {
                 try
                 {
-                    var fb = new FacebookClient();
+                    FacebookClient fb = new FacebookClient();
 
                     #region 取得 Access Token
                     dynamic result = fb.Get("oauth/access_token", new
@@ -45,9 +67,14 @@ namespace Tea
 
                     var accessToken = result.access_token;
                     Session["accessToken"] = accessToken;
+                    printMessage("# access token type : " + accessToken.GetType());
                     printMessage("# access token : " + result.access_token);
                     #endregion
-
+                    //}
+                    //catch(Exception ex)
+                    //{
+                    //    printMessage("get accessToken ex, " + ex.Message);
+                    //}
                     //#region 檢查 Scope 權限
 
                     //fb = new FacebookClient(Session["accessToken"].ToString());
