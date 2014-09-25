@@ -40,26 +40,26 @@ namespace Tea
                     Session["accessToken"] = result.access_token;
                     #endregion
 
-                    #region 檢查 Scope 權限
+                    //#region 檢查 Scope 權限
 
-                    fb = new FacebookClient(Session["accessToken"].ToString());
+                    //fb = new FacebookClient(Session["accessToken"].ToString());
 
-                    var query = string.Format("SELECT publish_stream, manage_pages FROM permissions WHERE uid = me()");
-                    dynamic parameters = new ExpandoObject();
-                    parameters.q = query;
-                    dynamic results = (IDictionary<string, object>)fb.Get("/fql", parameters);
+                    //var query = string.Format("SELECT publish_stream, manage_pages FROM permissions WHERE uid = me()");
+                    //dynamic parameters = new ExpandoObject();
+                    //parameters.q = query;
+                    //dynamic results = (IDictionary<string, object>)fb.Get("/fql", parameters);
 
-                    foreach (dynamic item in results.data)
-                    {
-                        Dictionary<string, object>.KeyCollection keys = item.Keys;
-                        if (!keys.Contains<string>("publish_stream") || !keys.Contains<string>("manage_pages"))
-                        {
-                            Response.Write("請允許 publish_stream 跟 manage_pages！");
-                            Response.End();
-                            return;
-                        }
-                    }
-                    #endregion
+                    //foreach (dynamic item in results.data)
+                    //{
+                    //    Dictionary<string, object>.KeyCollection keys = item.Keys;
+                    //    if (!keys.Contains<string>("publish_stream") || !keys.Contains<string>("manage_pages"))
+                    //    {
+                    //        Response.Write("請允許 publish_stream 跟 manage_pages！");
+                    //        Response.End();
+                    //        return;
+                    //    }
+                    //}
+                    //#endregion
 
                     #region 列出所有可管理的專頁
 
