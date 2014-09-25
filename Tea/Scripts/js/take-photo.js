@@ -16,11 +16,14 @@ $(function () {
         // safe delay
         setTimeout(function () {
             tp.startCamera();
-        }, 1000);
+        }, 2000);
     }
     else {
-        $("#btnFBConnect").click();
-        print("login.........");
+        // safe delay
+        setTimeout(function () {
+            $("#btnFBConnect").click();
+            print("login.........");
+        }, 500);
     }
 })
 
