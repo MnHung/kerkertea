@@ -12,7 +12,8 @@
 
     <h1>上傳照片至粉絲專頁並設為封面照片</h1>
     <hr />
-        <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+
+        <asp:Label ID="TextBox1" runat="server"></asp:Label>
         <h2>01.取得 FB 授權允許</h2>
         <asp:Button ID="btnFBConnect" runat="server" Text="取得 FB 授權允許" 
             onclick="btnFBConnect_Click" />

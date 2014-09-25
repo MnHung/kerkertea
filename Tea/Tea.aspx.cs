@@ -42,7 +42,7 @@ namespace Tea
                     });
 
                     Session["accessToken"] = result.access_token;
-                    printMessage("access token " + result.access_token);
+                    printMessage("# access token : " + result.access_token);
                     #endregion
 
                     //#region 檢查 Scope 權限
@@ -77,10 +77,12 @@ namespace Tea
                         IDictionary<string, object> page = null;
 
                         ddlPageID.Items.Clear();
+                        printMessage("My fan page counts, " + dicy.Count);
                         for (int i = 0; i <= dicy.Count - 1; i++)
                         {
                             page = (IDictionary<string, object>)dicy[i];
                             ddlPageID.Items.Add(new ListItem(page["name"].ToString(), page["id"].ToString()));
+                            printMessage(page["name"].ToString());
                         }
                     }
                     catch (Exception ex)
@@ -108,8 +110,12 @@ namespace Tea
             _pageID = "1474910372779635";
             // 照片檔名
             _fileName = tbFileName.Text;
+            printMessage("Image name :" + _fileName);
 
             Facebook.FacebookClient fb = new Facebook.FacebookClient(Session["accessToken"].ToString());
+
+            printMessage("# access token again :" + Session["accessToken"].ToString());
+
             IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
 
             // 列出所有我管理的粉絲專頁
