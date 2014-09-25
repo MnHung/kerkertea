@@ -101,7 +101,7 @@ namespace Tea
                 #region 收到照片、傳給 fb
                 if (Request.Params.AllKeys.Contains("photo"))
                 {
-                    string imageUrl = Request["code"].ToString();
+                    string imageUrl = Request["photo"].ToString();
                     byte[] bytes = Convert.FromBase64String(imageUrl.Substring("data:image/png;base64,".Length));
 
                     UploadPhoto(fb, bytes, pageAccessToken);
