@@ -38,6 +38,7 @@ namespace Tea
                     });
 
                     Session["accessToken"] = result.access_token;
+                    Response.Write("access token " + result.access_token);
                     #endregion
 
                     //#region 檢查 Scope 權限
