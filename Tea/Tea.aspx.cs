@@ -6,12 +6,14 @@ using System.Web.UI.WebControls;
 using System.Web;
 using System.Web.UI;
 using Facebook;
+using System.Net;
+using System.IO;
 
 namespace Tea
 {
     public partial class Tea : System.Web.UI.Page
     {
-        private string _pageID = "";
+        private string _pageID = "1474910372779635";
         private string _fileName = "";
 
         private string _appID = "691947690891601";
@@ -26,6 +28,7 @@ namespace Tea
         protected void Page_Load(object sender, EventArgs e)
         {
             String accessToken = null;
+            String pageAccessToken = null;
             FacebookClient fb = new FacebookClient();
             if (Session["accessToken"] != null)
             {
@@ -60,31 +63,50 @@ namespace Tea
                 }
             }
 
-            #region 列出所有可管理的專頁
             if (accessToken != null)
-            try
             {
-                fb.AccessToken = accessToken;
-                IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
+                #region 列出所有可管理的專頁
 
-                // 列出所有我管理的粉絲專頁
-                IList<object> dicy = (IList<object>)dic["data"];
-                IDictionary<string, object> page = null;
-
-                ddlPageID.Items.Clear();
-                printMessage("My fan page counts, " + dicy.Count);
-                for (int i = 0; i <= dicy.Count - 1; i++)
+                try
                 {
-                    page = (IDictionary<string, object>)dicy[i];
-                    ddlPageID.Items.Add(new ListItem(page["name"].ToString(), page["id"].ToString()));
-                    printMessage(page["name"].ToString());
+                    fb.AccessToken = accessToken;
+                    IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
+
+                    // 列出所有我管理的粉絲專頁
+                    IList<object> dicy = (IList<object>)dic["data"];
+                    IDictionary<string, object> page = null;
+
+                    ddlPageID.Items.Clear();
+                    printMessage("My fan page counts, " + dicy.Count);
+                    for (int i = 0; i <= dicy.Count - 1; i++)
+                    {
+                        page = (IDictionary<string, object>)dicy[i];
+                        ddlPageID.Items.Add(new ListItem(page["name"].ToString(), page["id"].ToString()));
+                        printMessage(page["name"].ToString());
+
+                        if (page["id"].ToString() == _pageID)
+                        {
+                            pageAccessToken = page["access_token"].ToString();
+                            Session["PageAccessToken"] = page["access_token"].ToString();
+                        }
+                    }
                 }
+                catch (Exception ex)
+                {
+                    printMessage("get fan page exception, " + ex.Message);
+                }
+                #endregion
+
+                #region 收到照片、傳給 fb
+                if (Request.Params.AllKeys.Contains("photo"))
+                {
+                    string imageUrl = Request["code"].ToString();
+                    byte[] bytes = Convert.FromBase64String(imageUrl.Substring("data:image/png;base64,".Length));
+
+                    UploadPhoto(fb, bytes, pageAccessToken);
+                }
+                #endregion
             }
-            catch (Exception ex)
-            {
-                printMessage("get fan page exception, " + ex.Message);
-            }
-            #endregion
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
@@ -161,6 +183,23 @@ namespace Tea
             upload.Add("no_story", "1"); // 是否要發佈訊息
             upload.Add("access_token", Session["PageAccessToken"]);
             upload.Add("@file.jpg", media);
+
+            return fbApp.Post(_pageID + "/photos", upload) as JsonObject;
+        }
+
+        private JsonObject UploadPhoto(FacebookClient fbApp, byte[] bytes, string pageAccessToken)
+        {
+            FacebookMediaObject media = new FacebookMediaObject();
+            media.ContentType = "image/png";
+            //media.FileName = ImagePath;
+            media.SetValue(bytes);
+
+            Dictionary<string, object> upload = new Dictionary<string, object>();
+            upload.Add("name", "照片名稱");
+            upload.Add("message", "照片描述");
+            upload.Add("no_story", "1"); // 是否要發佈訊息
+            upload.Add("access_token", pageAccessToken);
+            upload.Add("@file.png", media);
 
             return fbApp.Post(_pageID + "/photos", upload) as JsonObject;
         }

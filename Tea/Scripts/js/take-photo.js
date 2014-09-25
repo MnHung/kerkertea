@@ -1,14 +1,28 @@
-﻿$(function () {
+﻿Debug = false;
+
+$(function () {    
+    if (!Debug) {
+        $("#fb-div").hide();
+        $("button").hide();
+    }
+
     // start here, like a "main()"
     var loginState = $("#loginState").val();
+    loginState = "connected";
     print("#loginState: " + loginState);
     if (loginState == "connected") {
         tp.start();
-        tp.startCamera();
     }
     else {
         $("#btnFBConnect").click();
+        print("login.........");
     }
+
+    // safe delay
+    setTimeout(function () {
+        tp.startCamera();
+    }, 1000);
+
 })
 
 var tp = {};
@@ -27,29 +41,42 @@ tp.start = function () {
     });
 
     $("#take-photo").click(function () {
-        if (tp.videoStream) {
-            var pCanvus = document.getElementById("snap-shot");
-            var pContext = pCanvus.getContext("2d");
-            var video = tp.video;
+        tp.takePhoto();
+    });
 
-            //debugger;
-            video.pause();
+    $(document).keydown(function (key) {
+        if (key.keyCode == 87) {    // "w"
+            print("w");
 
-            pCanvus.width = video.videoWidth;
-            pCanvus.height = video.videoHeight;
-
-            pContext.drawImage(video, 0, 0, pCanvus.width, pCanvus.height);
-
-            var pDataUrl = pCanvus.toDataURL('image/webp');
-            document.getElementById("photo").src = pDataUrl;
-            tp.video.play();
-
-            $.post("upload-photo.php", { photo: pDataUrl });
-            //$.get("red.php", {photo: pDataUrl});
+            ///
+            tp.takePhoto();
         }
-        tp.stopCamera();
     });
 }
+
+tp.takePhoto = function () {
+    if (tp.videoStream) {
+        var pCanvus = document.getElementById("snap-shot");
+        var pContext = pCanvus.getContext("2d");
+        var video = tp.video;
+
+        //debugger;
+        video.pause();
+
+        pCanvus.width = video.videoWidth;
+        pCanvus.height = video.videoHeight;
+
+        pContext.drawImage(video, 0, 0, pCanvus.width, pCanvus.height);
+
+        var pDataUrl = pCanvus.toDataURL('image/webp');
+        document.getElementById("photo").src = pDataUrl;
+        tp.video.play();
+
+        $.post("./Tea", { photo: pDataUrl });
+    }
+    //tp.stopCamera();
+}
+
 
 tp.startCamera = function () {
     navigator.myGetMedia = (navigator.getUserMedia ||
@@ -58,8 +85,6 @@ tp.startCamera = function () {
             navigator.msGetUserMedia);
 
     navigator.myGetMedia({ video: true }, tp.onCameraConnect, tp.onCameraConnectError);
-
-    print(2);
 }
 
 tp.stopCamera = function (argument) {
