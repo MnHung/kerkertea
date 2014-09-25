@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ComputerBeacon.Facebook</id>
+    <version>5.1.527</version>
+    <title>Facebook Graph Toolkit</title>
+    <authors>Kayson Wong</authors>
+    <owners>Kayson Wong</owners>
+    <licenseUrl>https://fgt.codeplex.com/license</licenseUrl>
+    <projectUrl>http://computerbeacon.net/library/facebookgraphtoolkit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A easy to use, high performance and robust library for implementing Facebook's API in any .NET environment. Includes 100 endpoints and 258 object properties mapped directly to .NET, with the ability to extend to any new endpoint.</description>
+    <releaseNotes>- updated to Graph Api v2.0
+- updtaed class definitions to match latset Facebook documentation</releaseNotes>
+    <tags>Facebook Graph FQL</tags>
+    <dependencies>
+      <dependency id="ComputerBeacon.Json" version="4.2.765" />
+    </dependencies>
+  </metadata>
+</package>

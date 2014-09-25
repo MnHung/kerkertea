@@ -18,6 +18,9 @@
             <p>
                 <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
             </p>
+            <p>
+                <a class="btn btn-default" href="./Tea.aspx">Learn more Tea&raquo;</a>
+            </p>
         </div>
         <div class="col-md-4">
             <h2>Get more libraries</h2>
