@@ -25,37 +25,16 @@ namespace Tea
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            //if (Session["accessToken"] != null)
-            //{
-            //    Label4.Text = Session["AccessToken"].ToString();
-
-            //    // Retrieve user information from database if stored or else create a new FacebookClient with this accesstoken and extract data again.
-            //    var fb = new FacebookClient(Session["AccessToken"].ToString());
-
-            //    dynamic me = fb.Get("me?fields=friends,name,email");
-
-            //    string email = me.email;
-            //    Label1.Text = email;
-
-            //    var friends = me.friends;
-
-            //    foreach (var friend in (JsonArray)friends["data"])
-            //    {
-            //        System.Diagnostics.Debug.WriteLine((string)(((JsonObject)friend)["name"]));
-            //        ListBox1.Items.Add((string)(((JsonObject)friend)["name"]));
-            //    }
-
-            //    Button1.Text = "Log Out";
-
-            //}
-            //else 
-            if (Request.Params.AllKeys.Contains("code"))
+            String accessToken = null;
+            FacebookClient fb = new FacebookClient();
+            if (Session["accessToken"] != null)
+            {
+                accessToken = Session["accessToken"].ToString();
+            }
+            else if (Request.Params.AllKeys.Contains("code"))
             {
                 try
                 {
-                    FacebookClient fb = new FacebookClient();
-
                     #region 取得 Access Token
                     dynamic result = fb.Get("oauth/access_token", new
                     {
@@ -65,63 +44,11 @@ namespace Tea
                         code = Request["code"].ToString()
                     });
 
-                    var accessToken = result.access_token;
+                    accessToken = result.access_token;
                     Session["accessToken"] = accessToken;
                     printMessage("# access token type : " + accessToken.GetType());
                     printMessage("# access token : " + result.access_token);
                     #endregion
-                    //}
-                    //catch(Exception ex)
-                    //{
-                    //    printMessage("get accessToken ex, " + ex.Message);
-                    //}
-                    //#region 檢查 Scope 權限
-
-                    //fb = new FacebookClient(Session["accessToken"].ToString());
-
-                    //var query = string.Format("SELECT publish_stream, manage_pages FROM permissions WHERE uid = me()");
-                    //dynamic parameters = new ExpandoObject();
-                    //parameters.q = query;
-                    //dynamic results = (IDictionary<string, object>)fb.Get("/fql", parameters);
-
-                    //foreach (dynamic item in results.data)
-                    //{
-                    //    Dictionary<string, object>.KeyCollection keys = item.Keys;
-                    //    if (!keys.Contains<string>("publish_stream") || !keys.Contains<string>("manage_pages"))
-                    //    {
-                    //        Response.Write("請允許 publish_stream 跟 manage_pages！");
-                    //        Response.End();
-                    //        return;
-                    //    }
-                    //}
-                    //#endregion
-
-                    #region 列出所有可管理的專頁
-
-                    try
-                    {
-                        fb.AccessToken = accessToken;
-                        IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
-
-                        // 列出所有我管理的粉絲專頁
-                        IList<object> dicy = (IList<object>)dic["data"];
-                        IDictionary<string, object> page = null;
-
-                        ddlPageID.Items.Clear();
-                        printMessage("My fan page counts, " + dicy.Count);
-                        for (int i = 0; i <= dicy.Count - 1; i++)
-                        {
-                            page = (IDictionary<string, object>)dicy[i];
-                            ddlPageID.Items.Add(new ListItem(page["name"].ToString(), page["id"].ToString()));
-                            printMessage(page["name"].ToString());
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        printMessage("get fan page exception, " + ex.Message);
-                    }
-                    #endregion
-
                     PanelUpload.Visible = true;
 
                 }
@@ -132,6 +59,32 @@ namespace Tea
                     return;
                 }
             }
+
+            #region 列出所有可管理的專頁
+            if (accessToken != null)
+            try
+            {
+                fb.AccessToken = accessToken;
+                IDictionary<string, object> dic = (IDictionary<string, object>)fb.Get("/me/accounts");
+
+                // 列出所有我管理的粉絲專頁
+                IList<object> dicy = (IList<object>)dic["data"];
+                IDictionary<string, object> page = null;
+
+                ddlPageID.Items.Clear();
+                printMessage("My fan page counts, " + dicy.Count);
+                for (int i = 0; i <= dicy.Count - 1; i++)
+                {
+                    page = (IDictionary<string, object>)dicy[i];
+                    ddlPageID.Items.Add(new ListItem(page["name"].ToString(), page["id"].ToString()));
+                    printMessage(page["name"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                printMessage("get fan page exception, " + ex.Message);
+            }
+            #endregion
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
