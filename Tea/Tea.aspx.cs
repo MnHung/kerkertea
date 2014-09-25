@@ -19,6 +19,10 @@ namespace Tea
         private string _scope = "public_profile, manage_notifications, manage_pages, publish_actions, user_photos";
         private string _redirect_url = "http://kerkertea.apphb.com/Tea.aspx";
 
+        public void printMessage(string s)
+        {
+            TextBox1.Text += s + " \n<br />";
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             // 若已授權，querystring 應當取得 code，接下來要換回 access_token 再做事
@@ -38,7 +42,7 @@ namespace Tea
                     });
 
                     Session["accessToken"] = result.access_token;
-                    Response.Write("access token " + result.access_token);
+                    printMessage("access token " + result.access_token);
                     #endregion
 
                     //#region 檢查 Scope 權限
