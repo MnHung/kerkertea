@@ -19,7 +19,7 @@ namespace Tea
         private string _appID = "691947690891601";
         private string _appSecret = "2347601e744371de306e01be1edecb63";
         private string _scope = "public_profile, manage_notifications, manage_pages, publish_actions, user_activities, user_photos, user_about_me";
-        private string _redirect_url = "http://kerkertea.apphb.com/Tea.aspx";
+        private string _redirect_url = "http://kerkertea.apphb.com/Tea";
 
         public void printMessage(string s)
         {
@@ -196,7 +196,7 @@ namespace Tea
         {
             FacebookMediaObject media = new FacebookMediaObject();
             media.ContentType = "image/png";
-            //media.FileName = ImagePath;
+            media.FileName = "test.png";
             media.SetValue(bytes);
 
             Dictionary<string, object> upload = new Dictionary<string, object>();
