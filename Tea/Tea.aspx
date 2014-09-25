@@ -18,7 +18,7 @@
         <asp:Button ID="btnFBConnect" runat="server" Text="取得 FB 授權允許" 
             onclick="btnFBConnect_Click" />
 
-        <asp:Panel ID="PanelUpload" runat="server" Visible="false">
+        <asp:Panel ID="PanelUpload" runat="server">
         <h2>02.上傳照片並設為封面</h2>
         <ul>
             <li>粉絲專頁ID: 
