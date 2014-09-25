@@ -1,4 +1,5 @@
-﻿Debug = false;
+﻿var Debug = false;
+var loginState;
 
 $(function () {    
     if (!Debug) {
@@ -7,22 +8,20 @@ $(function () {
     }
 
     // start here, like a "main()"
-    var loginState = $("#loginState").val();
-    loginState = "connected";
+    loginState = $("#loginState").val();
     print("#loginState: " + loginState);
     if (loginState == "connected") {
         tp.start();
+
+        // safe delay
+        setTimeout(function () {
+            tp.startCamera();
+        }, 1000);
     }
     else {
         $("#btnFBConnect").click();
         print("login.........");
     }
-
-    // safe delay
-    setTimeout(function () {
-        tp.startCamera();
-    }, 1000);
-
 })
 
 var tp = {};
