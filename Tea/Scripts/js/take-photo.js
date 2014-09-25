@@ -1,8 +1,16 @@
 ﻿$(function () {
     // start here, like a "main()"
 
-    var elem = document.getElementById("photo-div"); 
-    elem.webkitRequestFullScreen(); 
+    setTimeout(function () {
+        var elem = document.getElementById("photo-div");
+        //debugger;
+        print(elem);
+        elem.webkitRequestFullScreen();
+
+        $("#take-photo").click();
+    }, 1000);
+
+    
 
     tp.start();
     tp.startCamera();
@@ -24,6 +32,10 @@ tp.start = function () {
     });
 
     $("#take-photo").click(function () {
+        var elem = document.getElementById("photo-div");
+        //debugger;
+        print(elem);
+        elem.webkitRequestFullScreen();
         if (tp.videoStream) {
             var pCanvus = document.getElementById("snap-shot");
             var pContext = pCanvus.getContext("2d");

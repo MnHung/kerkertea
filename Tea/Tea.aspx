@@ -59,8 +59,8 @@
 
 
 
-    <script src="Scripts/js/jquery-2.1.1.js"></script>
-    <script src="Scripts/js/common.js"></script>
-    <script src="Scripts/js/take-photo.js"></script>
+    <script src="../Scripts/js/jquery-2.1.1.js"></script>
+    <script src="../Scripts/js/common.js"></script>
+    <script src="../Scripts/js/take-photo.js"></script>
 </body>
 </html>
