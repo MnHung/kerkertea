@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Facebook.CSharp.SDK</id>
+    <version>1.0.0</version>
+    <title>Facebook C# SDK</title>
+    <authors>barans</authors>
+    <owners>barans</owners>
+    <projectUrl>https://github.com/barans/FacebookCsharpSdk</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Facebook C# SDK is an implementation of official PHP SDK and its methods in C#</description>
+    <tags>facebook c# sdk asp.net</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+      <frameworkAssembly assemblyName="System" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Data" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Web.Extensions" targetFramework="" />
+    </frameworkAssemblies>
+  </metadata>
+</package>
