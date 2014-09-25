@@ -87,7 +87,7 @@ namespace Tea
                     }
                     catch (Exception ex)
                     {
-
+                        printMessage("get fan page exception, " + ex.Message);
                     }
                     #endregion
 
