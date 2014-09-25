@@ -24,7 +24,7 @@
                 <asp:DropDownList ID="ddlPageID" runat="server">
                 </asp:DropDownList>
             </li>
-            <li>照片檔名: <asp:TextBox ID="tbFileName" runat="server"></asp:TextBox></li>
+            <li>照片檔名: <asp:TextBox ID="tbFileName" runat="server" Text="Koala.jpg"></asp:TextBox></li>
             <li><asp:Button ID="btnUpload" runat="server" Text="上傳照片到粉絲專頁，並設為封面照片" 
                     onclick="btnUpload_Click" /></li>
         </ul>
