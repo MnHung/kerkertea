@@ -16,8 +16,8 @@ namespace Tea
         private string _pageID = "1474519026152103";
         private string _fileName = "Koala.jpg";
 
-        private string _appID = "691947690891601";
-        private string _appSecret = "2347601e744371de306e01be1edecb63";
+        private string _appID = "___691947690891601";
+        private string _appSecret = "___2347601e744371de306e01be1edecb63";
         private string _scope = "public_profile, manage_notifications, manage_pages, publish_actions, user_activities, user_photos, user_about_me";
         private string _redirect_url = "http://localhost:51601/Tea";
 
@@ -59,10 +59,10 @@ namespace Tea
                 }
                 catch (Exception ex)
                 {
-                    //Response.Write("發生例外" + ex.Message);
-                    //Response.End();
-                    //return;
-                    Response.Redirect(this._redirect_url);
+                    Response.Write("發生例外" + ex.Message);
+                    Response.End();
+                    return;
+                   // Response.Redirect(this._redirect_url);
                 }
             }
 
