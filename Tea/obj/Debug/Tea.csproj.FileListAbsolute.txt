@@ -209,6 +209,6 @@ E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\zh-Hant\Micr
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\zh-Hant\Microsoft.Owin.Security.Google.resources.dll
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\zh-Hant\Microsoft.Owin.Security.Twitter.resources.dll
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\zh-Hant\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.csprojResolveAssemblyReference.cache
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.dll
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.pdb
+E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.csprojResolveAssemblyReference.cache

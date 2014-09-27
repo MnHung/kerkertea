@@ -13,13 +13,13 @@ namespace Tea
 {
     public partial class Tea : System.Web.UI.Page
     {
-        private string _pageID = "1474910372779635";
-        private string _fileName = "";
+        private string _pageID = "1474519026152103";
+        private string _fileName = "Koala.jpg";
 
         private string _appID = "691947690891601";
         private string _appSecret = "2347601e744371de306e01be1edecb63";
         private string _scope = "public_profile, manage_notifications, manage_pages, publish_actions, user_activities, user_photos, user_about_me";
-        private string _redirect_url = "http://kerkertea.apphb.com/Tea";
+        private string _redirect_url = "http://localhost:51601/Tea";
 
         public void printMessage(string s)
         {
@@ -27,12 +27,14 @@ namespace Tea
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            return;
             String accessToken = null;
             String pageAccessToken = null;
             FacebookClient fb = new FacebookClient();
             if (Session["accessToken"] != null)
             {
                 accessToken = Session["accessToken"].ToString();
+                //fb = new FacebookClient(accessToken);
             }
             else if (Request.Params.AllKeys.Contains("code"))
             {
@@ -57,9 +59,10 @@ namespace Tea
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("發生例外" + ex.Message);
-                    Response.End();
-                    return;
+                    //Response.Write("發生例外" + ex.Message);
+                    //Response.End();
+                    //return;
+                    Response.Redirect(this._redirect_url);
                 }
             }
 
@@ -67,7 +70,7 @@ namespace Tea
             {
                 loginState.Value = "connected";
                 #region 列出所有可管理的專頁
-
+                return;
                 try
                 {
                     fb.AccessToken = accessToken;
@@ -101,10 +104,35 @@ namespace Tea
                 #region 收到照片、傳給 fb
                 if (Request.Params.AllKeys.Contains("photo"))
                 {
-                    string imageUrl = Request["photo"].ToString();
-                    byte[] bytes = Convert.FromBase64String(imageUrl.Substring("data:image/webp;base64,".Length));
+                    //string imageUrl = Request["photo"].ToString();
+                    //byte[] bytes = Convert.FromBase64String(imageUrl.Substring("data:image/webp;base64,".Length));
 
-                    UploadPhoto(fb, bytes, pageAccessToken);
+                    //fb = PreparePhoto();
+
+                    //_fileName = "Koala.jpg";
+                    //string ImagePath = Server.MapPath("~/img/" + _fileName);
+                   
+                    //// 上傳照片
+                    //JsonObject result = UploadPhoto(fb, ImagePath, bytes, "image/png");
+
+                    fb = PreparePhoto();
+
+                    //_fileName = "Koala.jpg";
+                    string ImagePath = Server.MapPath("~/img/" + _fileName);
+                    string imageUrl = Request["photo"].ToString();
+                    // data:image/jpeg;base64,
+                    byte[] imageBytes = Convert.FromBase64String(imageUrl.Substring("data:image/jpeg;base64,".Length));
+
+                    MemoryStream ms = new MemoryStream(imageBytes, 0,
+                      imageBytes.Length);
+
+                    // Convert byte[] to Image
+                    ms.Write(imageBytes, 0, imageBytes.Length);
+                    System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true);
+
+                    //image.Save("haha.jpg");
+                    // 上傳照片
+                    JsonObject result = UploadPhoto(fb, ImagePath, imageBytes, null);
                 }
                 #endregion
             }
@@ -116,11 +144,30 @@ namespace Tea
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
+            Facebook.FacebookClient fb = PreparePhoto();
+
+            //_fileName = "Koala.jpg";
+            string ImagePath = Server.MapPath("~/img/" + _fileName);
+            byte[] filebytes = System.IO.File.ReadAllBytes(ImagePath);
+
+            // 上傳照片
+            JsonObject result = UploadPhoto(fb, ImagePath, filebytes, null);
+
+            // 設為封面
+            //SetCoverPhoto(fb, result["id"].ToString());
+
+            //string txt = string.Format("<p>上傳成功: <a href='https://www.facebook.com/photo.php?fbid={0}' target='_blank'>點擊這裡查看照片</a>，並<a href='https://www.facebook.com/{1}' target='_blank'>看看</a>是否已經設為封面了", result["id"].ToString(), _pageID);
+            //Response.Write(txt);
+        }
+
+        private FacebookClient PreparePhoto()
+        {
             // 選擇的粉絲專頁
-            _pageID = ddlPageID.SelectedValue;
+            //_pageID = ddlPageID.SelectedValue;
             //_pageID = "1474910372779635";
             // 照片檔名
-            _fileName = tbFileName.Text;
+            //_fileName = tbFileName.Text;
+            
             printMessage("Image name :" + _fileName);
 
             Facebook.FacebookClient fb = new Facebook.FacebookClient(Session["accessToken"].ToString());
@@ -141,8 +188,11 @@ namespace Tea
                 if (page["id"].ToString() == _pageID)
                 {
                     // 取得粉絲專頁的 access_token，才能針對粉絲專頁做 graph api 動作
-                    fb.AccessToken = page["access_token"].ToString();
-                    Session["PageAccessToken"] = page["access_token"].ToString();
+                    //CAAJ1UqBRmVEBALIU6CtOWPWcRtmcpPnY82NHMxndEAHwg72LDdgqD47u0jrsBH92fDlxSFa5VkJHZAxwWNfvyrMkPJ4docUM3Af98QnnefVYeMWu7TApray7feamYUDhk9nRadCLkIbme4IDfA6NAj8iKlvFZC2LIEujRYaZAuX12LkA2fm
+                    string pageAccessToken = page["access_token"].ToString();
+                    pageAccessToken = "CAAJ1UqBRmVEBALIU6CtOWPWcRtmcpPnY82NHMxndEAHwg72LDdgqD47u0jrsBH92fDlxSFa5VkJHZAxwWNfvyrMkPJ4docUM3Af98QnnefVYeMWu7TApray7feamYUDhk9nRadCLkIbme4IDfA6NAj8iKlvFZC2LIEujRYaZAuX12LkA2fm";
+                    fb.AccessToken = pageAccessToken;
+                    Session["PageAccessToken"] = pageAccessToken;
                     break;
                 }
             }
@@ -152,15 +202,7 @@ namespace Tea
                 Response.Write("無法管理此粉絲專頁: " + _pageID);
                 Response.End();
             }
-
-            // 上傳照片
-            JsonObject result = UploadPhoto(fb, Server.MapPath("~/img/" + _fileName));
-
-            // 設為封面
-            SetCoverPhoto(fb, result["id"].ToString());
-
-            string txt = string.Format("<p>上傳成功: <a href='https://www.facebook.com/photo.php?fbid={0}' target='_blank'>點擊這裡查看照片</a>，並<a href='https://www.facebook.com/{1}' target='_blank'>看看</a>是否已經設為封面了", result["id"].ToString(), _pageID);
-            Response.Write(txt);
+            return fb;
         }
 
         protected void btnFBConnect_Click(object sender, EventArgs e)
@@ -174,13 +216,14 @@ namespace Tea
         /// <param name="fbApp"></param>
         /// <param name="ImagePath"></param>
         /// <returns></returns>
-        private JsonObject UploadPhoto(Facebook.FacebookClient fbApp, string ImagePath)
+        private JsonObject UploadPhoto(Facebook.FacebookClient fbApp, string ImagePath, byte[] filebytes, string ContentType)
         {
             Facebook.FacebookMediaObject media = new Facebook.FacebookMediaObject();
-            media.ContentType = "image/jpeg";
+            if (ContentType == null)
+                ContentType = "image/jpeg";
+            media.ContentType = ContentType;
             media.FileName = ImagePath;
 
-            byte[] filebytes = System.IO.File.ReadAllBytes(ImagePath);
             media.SetValue(filebytes);
             Dictionary<string, object> upload = new Dictionary<string, object>();
             upload.Add("name", "照片名稱");

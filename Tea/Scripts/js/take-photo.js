@@ -1,4 +1,4 @@
-﻿var Debug = false;
+﻿var Debug = true;
 var loginState;
 
 $(function () {    
@@ -16,14 +16,16 @@ $(function () {
         // safe delay
         setTimeout(function () {
             tp.startCamera();
-        }, 2000);
+        }, 1000);
     }
     else {
+        tp.start();
+        tp.startCamera();
         // safe delay
-        setTimeout(function () {
-            $("#btnFBConnect").click();
-            print("login.........");
-        }, 500);
+        //setTimeout(function () {
+        //    $("#btnFBConnect").click();
+        //    print("login.........");
+        //}, 500);
     }
 })
 
@@ -70,11 +72,11 @@ tp.takePhoto = function () {
 
         pContext.drawImage(video, 0, 0, pCanvus.width, pCanvus.height);
 
-        var pDataUrl = pCanvus.toDataURL('image/webp');
+        var pDataUrl = pCanvus.toDataURL('image/jpeg');
         document.getElementById("photo").src = pDataUrl;
         tp.video.play();
 
-        $.post("./Tea", { photo: pDataUrl });
+        $.post("./CheatTea", { photo: pDataUrl });
     }
     //tp.stopCamera();
 }
