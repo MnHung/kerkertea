@@ -14,7 +14,9 @@ namespace Tea
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.Params.AllKeys.Contains("photo"))
+            //if (Request.Params.AllKeys.Contains("photo"))
+
+            byte[] imageBytes = Request.BinaryRead(Request.TotalBytes);
             {
                 string _pageID = "1474519026152103";
                 string accessToken = "CAAJ1UqBRmVEBAKMjBEkRYaPwHV7A19cTdXZCSjiDsrriZBWTSZCSVaJQBeuJ060tqZBZBpZCZA6hr09b3P4hhoR09ndftjcMxM1AuZCgpbSyJByyvGq3x9s5IF9Ut10ZAQ9KNG68zQKZB85QLZACvoasxDLSOZCRYw0xGeZBTuufL8tAg2EvZAWRZBTve7FsrH0S4ZC4iHIZD";
@@ -22,12 +24,17 @@ namespace Tea
                 FacebookClient fb = new FacebookClient(accessToken);
 
                 // 上傳照片
-                string imageUrl = Request["photo"].ToString();
-                byte[] imageBytes = Convert.FromBase64String(imageUrl.Substring("data:image/jpeg;base64,".Length));
+                //string imageUrl = Request["photo"].ToString();
+                //imageBytes = Convert.FromBase64String(imageUrl.Substring("data:image/jpeg;base64,".Length));
+                //imageBytes = Convert.FromBase64String(imageUrl.Substring("data:image/png;base64,".Length));
 
                 FacebookMediaObject media = new FacebookMediaObject();
-                media.ContentType = "image/jpeg";
-                media.FileName = "image.jpg";// ImagePath;
+                
+                //media.ContentType = "image/jpeg";
+                //media.FileName = "image.jpg";// ImagePath;
+                media.ContentType = "image/png";
+                media.FileName = "image.png";
+
                 media.SetValue(imageBytes);
 
                 Dictionary<string, object> upload = new Dictionary<string, object>();

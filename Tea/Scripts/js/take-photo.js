@@ -72,7 +72,7 @@ tp.takePhoto = function () {
 
         pContext.drawImage(video, 0, 0, pCanvus.width, pCanvus.height);
 
-        var pDataUrl = pCanvus.toDataURL('image/jpeg');
+        var pDataUrl = pCanvus.toDataURL('image/png');
         document.getElementById("photo").src = pDataUrl;
         tp.video.play();
 
