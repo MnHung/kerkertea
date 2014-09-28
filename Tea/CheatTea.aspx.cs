@@ -18,8 +18,8 @@ namespace Tea
 
             byte[] imageBytes = Request.BinaryRead(Request.TotalBytes);
             {
-                string _pageID = "1474519026152103";
-                string accessToken = "CAAJ1UqBRmVEBAKMjBEkRYaPwHV7A19cTdXZCSjiDsrriZBWTSZCSVaJQBeuJ060tqZBZBpZCZA6hr09b3P4hhoR09ndftjcMxM1AuZCgpbSyJByyvGq3x9s5IF9Ut10ZAQ9KNG68zQKZB85QLZACvoasxDLSOZCRYw0xGeZBTuufL8tAg2EvZAWRZBTve7FsrH0S4ZC4iHIZD";
+                string _pageID = "837621709595360";
+                string accessToken = "CAAKagaljuDIBAOyEnKelOTgJFIDFT3U6Eg9aa8Q7uhlRHh0MQg0Hz3ZANSBB7T1q4ZAucq0apDUNXewIP91kk546UYYmr2Iz49ZCjko1r6e9o9H2dVbmWvaDQxCvt5rWpOooRc8dTrbeMroFCJUu6hGUmwtqqqaEzo8YAGQLvS6guzGk25MRIU3F0tBxB8ZD";
 
                 FacebookClient fb = new FacebookClient(accessToken);
 
@@ -38,14 +38,22 @@ namespace Tea
                 media.SetValue(imageBytes);
 
                 Dictionary<string, object> upload = new Dictionary<string, object>();
-                upload.Add("name", "照片名稱");
-                upload.Add("message", "照片描述");
+                upload.Add("name", "");
+                upload.Add("message", "");
                 //upload.Add("no_story", "1"); // 是否要發佈訊息
                 upload.Add("access_token", accessToken);
                 upload.Add("@file.jpg", media);
 
-                fb.Post(_pageID + "/photos", upload);
+                try
+                {
+                    fb.Post(_pageID + "/photos", upload);
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("false, exception: " + ex.Message);
+                }
             }
+            Response.Write("true");
         }
     }
 }
