@@ -30,17 +30,14 @@ namespace Tea
 
                 FacebookMediaObject media = new FacebookMediaObject();
                 
-                //media.ContentType = "image/jpeg";
-                //media.FileName = "image.jpg";// ImagePath;
-                media.ContentType = "image/png";
-                media.FileName = "image.png";
+                media.ContentType = "image/jpeg";
+                media.FileName = "image.jpg";
 
                 media.SetValue(imageBytes);
 
                 Dictionary<string, object> upload = new Dictionary<string, object>();
-                upload.Add("name", "");
-                upload.Add("message", "");
-                //upload.Add("no_story", "1"); // 是否要發佈訊息
+                upload.Add("name", "test name");
+                upload.Add("message", "test message");
                 upload.Add("access_token", accessToken);
                 upload.Add("@file.jpg", media);
 
