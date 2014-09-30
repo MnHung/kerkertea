@@ -36,8 +36,8 @@ namespace Tea
                 media.SetValue(imageBytes);
 
                 Dictionary<string, object> upload = new Dictionary<string, object>();
-                upload.Add("name", "test name");
-                upload.Add("message", "test message");
+                upload.Add("name", "今天我來到六堆客家文化園區，參觀了新茶特展，還體驗了品茶的奇幻之地！你趕快也ㄧ起來看看吧！<br /><br />https://www.facebook.com/liuduihakkatea");
+                upload.Add("message", "");
                 upload.Add("access_token", accessToken);
                 upload.Add("@file.jpg", media);
 
