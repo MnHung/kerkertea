@@ -172,6 +172,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="HaveTea_Test.aspx" />
     <Content Include="img\Koala.jpg" />
     <Content Include="img\photoMain.swf" />
     <Content Include="packages.config" />
@@ -300,6 +301,10 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HaveTea_Test.aspx.cs">
+      <DependentUpon>HaveTea_Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

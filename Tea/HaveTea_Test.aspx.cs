@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Tea
 {
-    public partial class CheatTea : System.Web.UI.Page
+    public partial class HaveTea_Test : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

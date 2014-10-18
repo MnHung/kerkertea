@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CheatTea.aspx.cs" Inherits="Tea.CheatTea" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HaveTea_Test.aspx.cs" Inherits="Tea.HaveTea_Test" %>

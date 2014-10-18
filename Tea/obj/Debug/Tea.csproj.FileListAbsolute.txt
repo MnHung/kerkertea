@@ -212,4 +212,3 @@ E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\zh-Hant\Micr
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.dll
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.pdb
 E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\bin\crossdomain.xml
-E:\My Documents\Dropbox\TakePhoto\aspnet_apphabor\kerkertea\Tea\obj\Debug\Tea.csprojResolveAssemblyReference.cache
